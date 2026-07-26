@@ -1,0 +1,58 @@
+# ==========================================
+# 1. DATA INGESTION & PARSING
+# ==========================================
+requests>=2.31.0               # For fetching from SEC EDGAR API
+unstructured[all-docs]>=0.18.0 # Best-in-class layout-aware parser (handles HTML/PDF, extracts tables/headers)
+beautifulsoup4>=4.12.0         # Fallback parsing for raw SEC HTML manipulation
+pdfplumber>=0.10.0             # Backup PDF parser explicitly great for extracting tabular data cleanly
+pydantic>=2.7.0                # Strict data validation (validating metadata and parsed schemas)
+
+# ==========================================
+# 2. CHUNKING & EMBEDDINGS
+# ==========================================
+tiktoken>=0.7.0                # Tokenizer-aware chunking (OpenAI's token counting)
+sentence-transformers>=3.0.0   # Open-source bi-encoders & cross-encoders (for reranking)
+torch>=2.2.0                   # Required backend for sentence-transformers
+
+# ==========================================
+# 3. VECTOR DATABASE & HYBRID SEARCH
+# ==========================================
+faiss-cpu>=1.8.0               # Local, fast dense vector index (HNSW/IVF)
+rank-bm25>=0.2.2               # Sparse keyword search index (for hybrid RRF fusion)
+pgvector>=0.2.1                # Postgres vector extension (if scaling beyond FAISS)
+psycopg2-binary>=2.9.9         # Postgres driver
+sqlalchemy>=2.0.29             # ORM for interacting with the document/metadata DB
+
+# ==========================================
+# 4. LLM GENERATION & ROUTING
+# ==========================================
+openai>=1.30.0                 # OpenAI Python SDK for generation (GPT-4o)
+instructor>=1.2.0              # Forces LLMs to output strict JSON (crucial for query decomposition/routing)
+
+# ==========================================
+# 5. EVALUATION (THE "GOLDEN SET" HARNESS)
+# ==========================================
+ragas>=0.3.0                   # Standard framework for RAG metrics (faithfulness, context precision)
+datasets>=2.19.0               # Required by Ragas for managing the golden evaluation datasets
+pytest>=8.2.0                  # Running the automated CI regression tests
+pytest-asyncio>=0.23.0         # For testing async FastAPI/DB calls
+
+# ==========================================
+# 6. API, SERVING & RATE LIMITING
+# ==========================================
+fastapi>=0.111.0               # Async API framework
+uvicorn[standard]>=0.29.0      # ASGI server for FastAPI
+slowapi>=0.1.4                 # Token-bucket rate limiting for FastAPI routes
+
+# ==========================================
+# 7. CACHING & OBSERVABILITY
+# ==========================================
+redis>=5.0.4                   # Semantic caching & API rate-limit state
+langfuse>=2.30.0               # Open-source LLM tracing (logs traces, retrieval ms, rerank scores, costs)
+loguru>=0.7.2                  # Clean, structured logging (replaces standard python logging)
+python-dotenv>=1.0.1           # Managing .env files (SEC headers, API keys, DB urls)
+
+# ==========================================
+# 8. LOAD TESTING (OPTIONAL BUT RECOMMENDED)
+# ==========================================
+locust>=2.28.0                 # Simulating concurrent API requests for performance benchmarks

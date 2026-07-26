@@ -1,0 +1,12 @@
+# Virtual Environment
+venv/
+__pycache__/
+*.pyc
+
+# Data and Vector Indices (Too heavy for GitHub)
+data/
+*.faiss
+*.pkl
+
+# OS Files
+.DS_Store
