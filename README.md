@@ -59,7 +59,7 @@ FastAPI Server ← Llama 3.2 (Ollama) ← Grounded Context + Inline Citations
 **FastAPI Swagger docs — live query walkthrough:**
 
 <!-- TODO: add GIF of the /docs Swagger UI walkthrough here -->
-[FastAPI docs demo](assets/gif.gif)
+![FastAPI docs demo](assets/gif.gif)
 
 ---
 
