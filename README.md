@@ -25,27 +25,27 @@ FastAPI Server ← Llama 3.2 (Ollama) ← Grounded Context + Inline Citations
 
 ### 2. Hybrid Retrieval (Dense + Sparse Search)
 
-- **What we did:** Paired a dense vector index via FAISS (`BAAI/bge-small-en-v1.5`) with a parallel sparse keyword index via BM25.
+- **What I did:** Paired a dense vector index via FAISS (`BAAI/bge-small-en-v1.5`) with a parallel sparse keyword index via BM25.
 - **Why:** Dense embeddings capture semantic meaning (e.g. "regulatory liabilities"), but fail on exact financial identifiers such as specific alphanumeric line items, product codes, or dollar amounts. Combining them ensures the engine never misses context due to vocabulary mismatch.
 
 ### 3. Reciprocal Rank Fusion (RRF) & Cross-Encoder Reranking
 
-- **What we did:** Merged sparse and dense retrieval lists using Reciprocal Rank Fusion (RRF), then passed the top candidates through a deeper cross-encoder (`ms-marco-MiniLM-L-6-v2`) to score query-document pairs jointly.
+- **What I did:** Merged sparse and dense retrieval lists using Reciprocal Rank Fusion (RRF), then passed the top candidates through a deeper cross-encoder (`ms-marco-MiniLM-L-6-v2`) to score query-document pairs jointly.
 - **Why:** RRF safely normalizes scores across fundamentally different metric spaces without hyperparameter tuning, while the cross-encoder eliminates noisy chunks by performing deep semantic attention scoring before generation.
 
 ### 4. Grounded Generation & Guardrails
 
-- **What we did:** Routed top-ranked chunks into a local **Llama 3.2** instance via Ollama with strict prompt guardrails.
+- **What I did:** Routed top-ranked chunks into a local **Llama 3.2** instance via Ollama with strict prompt guardrails.
 - **Why:** Enterprise financial applications cannot tolerate hallucinations. The model is forced to output strict bracketed source attributions (`[Chunk ID]`) and execute zero-knowledge fallback refusals whenever the retrieved context lacks sufficient data.
 
 ### 5. Automated Evaluation (RAGAS)
 
-- **What we did:** Built an automated LLM-as-a-Judge evaluation harness using RAGAS to quantitatively score *Faithfulness* and *Answer Relevancy*.
+- **What I did:** Built an automated LLM-as-a-Judge evaluation harness using RAGAS to quantitatively score *Faithfulness* and *Answer Relevancy*.
 - **Why:** Manual testing does not scale. Quantitative metrics allow continuous verification of pipeline reliability against a golden test dataset.
 
 ### 6. Production API (FastAPI)
 
-- **What we did:** Wrapped the pipeline into an asynchronous FastAPI server with Pydantic validation and auto-generated Swagger documentation (`/docs`).
+- **What I did:** Wrapped the pipeline into an asynchronous FastAPI server with Pydantic validation and auto-generated Swagger documentation (`/docs`).
 - **Why:** Transitions the codebase from a static research script into production-ready software capable of handling real-time web requests.
 
 ---
