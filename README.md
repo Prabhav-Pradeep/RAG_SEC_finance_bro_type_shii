@@ -20,7 +20,7 @@ FastAPI Server ← Llama 3.2 (Ollama) ← Grounded Context + Inline Citations
 
 ### 1. Ingestion & Structure-Aware Chunking
 
-- **What we did:** Parsed raw SEC HTML filings and used OpenAI's `tiktoken` to slice text at exact token boundaries.
+- **What I did:** Parsed raw SEC HTML filings and used OpenAI's `tiktoken` to slice text at exact token boundaries.
 - **Why:** Financial documents rely heavily on tabular data and nested metrics. Standard chunkers slice mid-table and corrupt numerical integrity; our structure-aware approach keeps financial Markdown blocks atomic.
 
 ### 2. Hybrid Retrieval (Dense + Sparse Search)
